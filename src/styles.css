@@ -93,6 +93,8 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .section {
@@ -102,6 +104,11 @@ body {
   height: 100dvh;
   scroll-snap-align: start;
   overflow: hidden;
+  touch-action: pan-y;
+}
+
+.section:first-of-type {
+  touch-action: none;
 }
 
 .section-content {

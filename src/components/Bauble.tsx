@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useThree, useFrame } from '@react-three/fiber'
 import { useGLTF } from '@react-three/drei'
 import { BallCollider, RigidBody, CylinderCollider } from '@react-three/rapier'
 import type { RapierRigidBody } from '@react-three/rapier'
@@ -42,6 +42,7 @@ const _dir = new THREE.Vector3()
 
 export function Bauble({ scale, initialPosition, variant = 'hero', index, total }: BaubleProps) {
   const { nodes } = useGLTF('/cap.glb') as any
+  const { viewport } = useThree()
   const api = useRef<RapierRigidBody>(null)
   const [isDiscarded, setIsDiscarded] = useState(false)
   const colors = VARIANT_COLORS[variant] || VARIANT_COLORS.hero
@@ -60,6 +61,9 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
     delta = Math.min(0.1, delta)
     const t = state.clock.elapsedTime + timeOffset.current
     const pos = api.current.translation()
+    // Dynamic scale reduction for mobile
+    const mobileScale = viewport.width < 10 ? 0.8 : 1
+    const responsiveScale = scale * mobileScale
 
     if (variant === 'hero') {
       if (isDiscarded) return
@@ -68,37 +72,45 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
           .copy(api.current.translation())
           .normalize()
           .multiply({
-            x: -50 * delta * scale,
-            y: -150 * delta * scale,
-            z: -50 * delta * scale,
+            x: -50 * delta * responsiveScale,
+            y: -150 * delta * responsiveScale,
+            z: -50 * delta * responsiveScale,
           }),
         true
       )
     } else {
       let targetX = 0, targetY = 0, targetZ = 0
+
       if (variant === 'summary') {
         const side = index % 2 === 0 ? -1 : 1
-        targetX = side * (11 + (index % 4) * 1.0)
+        // Push even further to edges (1.8 instead of 2.2)
+        const margin = viewport.width > 12 ? 11.5 : viewport.width / 1.85
+        targetX = side * (margin + (index % 4) * 0.4)
         targetY = Math.sin(t * 0.5) * 4 + ((index % 6) - 3) * 1.5
         targetZ = Math.sin(t * 0.2 + index) * 2
       } else if (variant === 'skills') {
         const angle = (index / total) * Math.PI * 2 + t * 0.2
-        const radius = 11 + Math.sin(t * 0.4 + index) * 1.2
-        targetX = Math.cos(angle) * radius
-        targetY = Math.sin(angle) * (radius * 0.8)
+        // Responsive Ellipse: stretch vertically for tall mobile screens
+        const rx = viewport.width * 0.5 + 2.5
+        const ry = viewport.width < 10 
+          ? Math.max(viewport.height * 0.38, 8) // Tall mobile oval
+          : viewport.height * 0.45 // Desktop circle-ish
+        targetX = Math.cos(angle) * rx
+        targetY = Math.sin(angle) * ry
         targetZ = Math.sin(t * 0.3 + index * 0.5) * 2
       } else if (variant === 'contact') {
         const side = index % 2 === 0 ? -1 : 1
-        targetX = side * (13 + (index % 3) * 1.5)
+        const margin = viewport.width > 12 ? 13.5 : viewport.width / 1.8
+        targetX = side * (margin + (index % 3) * 0.8)
         targetY = Math.sin(t * 0.3 + index) * 6 + ((index % 8) - 4) * 1.5
         targetZ = Math.cos(t * 0.2) * 3
       }
 
       _vec.set(pos.x - targetX, pos.y - targetY, pos.z - targetZ)
       _vec.normalize().multiply({
-        x: -80 * delta * scale,
-        y: -150 * delta * scale,
-        z: -50 * delta * scale,
+        x: -80 * delta * responsiveScale,
+        y: -150 * delta * responsiveScale,
+        z: -50 * delta * responsiveScale,
       })
       api.current.applyImpulse(_vec, true)
     }
@@ -118,7 +130,7 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
         }
       }}
     >
-      <BallCollider args={[scale]} />
+      <BallCollider args={[scale * (viewport.width < 10 ? 0.8 : 1)]} />
       <CylinderCollider
         rotation={[Math.PI / 2, 0, 0]}
         position={[0, 0, 1.2 * scale]}

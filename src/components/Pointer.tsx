@@ -8,8 +8,8 @@ const _vec = new THREE.Vector3()
 
 export function Pointer() {
   const ref = useRef<RapierRigidBody>(null)
-  
   const active = useRef(false)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
   
   useFrame(({ mouse, viewport }) => {
     if (!ref.current) return
@@ -22,7 +22,7 @@ export function Pointer() {
 
   return (
     <RigidBody name="pointer" position={[100, 100, 100]} ref={ref as any} type="kinematicPosition" colliders={false}>
-      <BallCollider args={[2]} />
+      <BallCollider args={[isMobile ? 3 : 2]} />
     </RigidBody>
   )
 }

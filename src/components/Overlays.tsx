@@ -17,7 +17,7 @@ export function HeroSection({ isActive }: SectionProps) {
 
   return (
     <div className="section-content">
-      <div className={`flex flex-col items-center gap-4 p-10 text-center transition-opacity duration-[2000ms] ease-in-out ${visible ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`flex flex-col items-center gap-4 p-10 text-center transition-opacity duration-[2000ms] ease-in-out pointer-events-none ${visible ? 'opacity-100' : 'opacity-0'}`}>
         <span className="text-[10px] tracking-[0.5em] text-[#26b7cd]/40 font-medium uppercase">
           INTERACTIVE CV / SWIPE TO REVEAL
         </span>

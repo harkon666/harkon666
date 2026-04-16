@@ -34,15 +34,31 @@ const SECTION_LIGHTS = [
 
 export function ThreeScene({ activeSection }: ThreeSceneProps) {
   const [mounted, setMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const [renderedSection, setRenderedSection] = useState(activeSection)
 
-  useEffect(() => setMounted(true), [])
+  useEffect(() => {
+    setMounted(true)
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     setRenderedSection(activeSection)
   }, [activeSection])
 
-  const config = SECTION_CONFIGS[renderedSection] || SECTION_CONFIGS[0]
+  const mobileConfigs = useMemo(() => [
+    { count: 55, variant: 'hero' },
+    { count: 40, variant: 'summary' },
+    { count: 32, variant: 'skills' },
+    { count: 40, variant: 'contact' },
+  ], [])
+
+  const config = isMobile
+    ? (mobileConfigs[renderedSection] || mobileConfigs[0])
+    : (SECTION_CONFIGS[renderedSection] || SECTION_CONFIGS[0])
   const lights = SECTION_LIGHTS[renderedSection] || SECTION_LIGHTS[0]
 
   const baubleData = useMemo(() => {
@@ -59,13 +75,13 @@ export function ThreeScene({ activeSection }: ThreeSceneProps) {
       } else if (config.variant === 'summary') {
         const side = i % 2 === 0 ? -1 : 1
         x = side * (10 + Math.random() * 3)
-        y = r(15) - 20 
+        y = r(15) - 20
         z = r(4)
       } else if (config.variant === 'skills') {
         const angle = (i / config.count) * Math.PI * 2
-        const radius = 11 + Math.random() * 2
+        const radius = 11 + Math.random() * 1.5
         x = Math.cos(angle) * radius
-        y = r(15) - 20 
+        y = r(15) - 20
         z = r(3)
       } else {
         x = r(20)
