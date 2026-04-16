@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Github, Linkedin, Mail } from 'lucide-react'
 
 interface SectionProps {
   isActive: boolean
@@ -9,7 +10,7 @@ export function HeroSection({ isActive }: SectionProps) {
 
   useEffect(() => {
     if (isActive) {
-      const timer = setTimeout(() => setVisible(true), 1500)
+      const timer = setTimeout(() => setVisible(true), 2500)
       return () => clearTimeout(timer)
     }
   }, [isActive])
@@ -40,7 +41,7 @@ export function SummarySection({ isActive }: SectionProps) {
 
   useEffect(() => {
     if (isActive && !visible) {
-      const timer = setTimeout(() => setVisible(true), 800)
+      const timer = setTimeout(() => setVisible(true), 1500)
       return () => clearTimeout(timer)
     }
   }, [isActive, visible])
@@ -62,7 +63,7 @@ export function SummarySection({ isActive }: SectionProps) {
             DEVELOPER
           </span>
           <span className="text-[9px] tracking-[0.4em] text-[#338aca]/50 font-semibold uppercase px-3 py-1 border border-[#338aca]/20 rounded-full">
-            BUILDER
+            DESIGNER
           </span>
           <span className="text-[9px] tracking-[0.4em] text-[#338aca]/50 font-semibold uppercase px-3 py-1 border border-[#338aca]/20 rounded-full">
             CREATOR
@@ -78,16 +79,16 @@ export function SkillsSection({ isActive }: SectionProps) {
 
   useEffect(() => {
     if (isActive && !visible) {
-      const timer = setTimeout(() => setVisible(true), 800)
+      const timer = setTimeout(() => setVisible(true), 1500)
       return () => clearTimeout(timer)
     }
   }, [isActive, visible])
 
   const skills = [
-    { category: 'LANGUAGES', items: ['TypeScript', 'JavaScript', 'Rust', 'Python', 'Solidity'] },
-    { category: 'FRONTEND', items: ['React', 'Next.js', 'Three.js', 'TailwindCSS', 'Vue'] },
-    { category: 'BACKEND', items: ['Node.js', 'Hono', 'PostgreSQL', 'Redis', 'Docker'] },
-    { category: 'WEB3', items: ['Ethereum', 'Polkadot', 'Smart Contracts', 'DeFi', 'ISMP'] },
+    { category: 'LANGUAGES', items: ['TypeScript', 'Go', 'Rust', 'Python', 'Solidity', 'Others...'] },
+    { category: 'FRONTEND', items: ['React', 'Next.js', 'Three.js', 'TailwindCSS', 'Vue', 'Others...'] },
+    { category: 'BACKEND', items: ['Node.js', 'Hono', 'PostgreSQL', 'Redis', 'Docker', 'Others...'] },
+    { category: 'WEB3', items: ['EVM', 'Solana', 'ZK', 'Sui', 'Proxy', 'Others...'] },
   ]
 
   return (
@@ -123,15 +124,15 @@ export function ContactSection({ isActive }: SectionProps) {
 
   useEffect(() => {
     if (isActive && !visible) {
-      const timer = setTimeout(() => setVisible(true), 500)
+      const timer = setTimeout(() => setVisible(true), 1200)
       return () => clearTimeout(timer)
     }
   }, [isActive, visible])
 
   const links = [
-    { label: 'GitHub', url: 'https://github.com/harkon666', icon: '◆' },
-    { label: 'LinkedIn', url: 'https://linkedin.com/in/harkon666', icon: '◇' },
-    { label: 'Email', url: 'mailto:harkon@example.com', icon: '◈' },
+    { label: 'GitHub', url: 'https://github.com/harkon666', icon: Github },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/bryan-dewawicaksana', icon: Linkedin },
+    { label: 'Email', url: 'mailto:bryan.wicaksanaa@gmail.com', icon: Mail },
   ]
 
   return (
@@ -154,9 +155,12 @@ export function ContactSection({ isActive }: SectionProps) {
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 px-6 py-3 border border-[#26b7cd]/20 rounded-lg hover:border-[#26b7cd]/50 hover:bg-[#26b7cd]/5 transition-all duration-300 no-underline"
+              className="group flex items-center gap-3 px-6 py-3 border border-[#26b7cd]/20 rounded-lg hover:border-[#26b7cd]/50 hover:bg-[#26b7cd]/10 bg-black/20 backdrop-blur-sm transition-all duration-300 no-underline"
+              style={{ pointerEvents: 'auto' }}
             >
-              <span className="text-[#26b7cd]/60 group-hover:text-[#26b7cd] transition-colors">{link.icon}</span>
+              <span className="text-[#26b7cd]/60 group-hover:text-[#26b7cd] transition-colors">
+                <link.icon size={18} />
+              </span>
               <span className="text-[0.9rem] text-white/40 group-hover:text-white/70 font-semibold tracking-wide transition-colors">
                 {link.label}
               </span>

@@ -20,11 +20,11 @@ function App() {
       if (!section) return
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
             setActiveSection(index)
           }
         },
-        { threshold: 0.5 }
+        { threshold: 0.1 }
       )
       observer.observe(section)
       observers.push(observer)

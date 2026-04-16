@@ -16,9 +16,9 @@ interface BaubleConfig {
 
 const SECTION_CONFIGS: BaubleConfig[] = [
   { count: 80, variant: 'hero' },
-  { count: 20, variant: 'summary' },
-  { count: 16, variant: 'skills' },
-  { count: 20, variant: 'contact' },
+  { count: 50, variant: 'summary' },
+  { count: 48, variant: 'skills' },
+  { count: 50, variant: 'contact' },
 ]
 
 interface ThreeSceneProps {
@@ -59,17 +59,17 @@ export function ThreeScene({ activeSection }: ThreeSceneProps) {
       } else if (config.variant === 'summary') {
         const side = i % 2 === 0 ? -1 : 1
         x = side * (10 + Math.random() * 3)
-        y = r(12)
+        y = r(15) - 20 
         z = r(4)
       } else if (config.variant === 'skills') {
         const angle = (i / config.count) * Math.PI * 2
         const radius = 11 + Math.random() * 2
         x = Math.cos(angle) * radius
-        y = Math.sin(angle) * radius
+        y = r(15) - 20 
         z = r(3)
       } else {
         x = r(20)
-        y = r(14)
+        y = r(15) - 20
         z = r(6)
       }
 
@@ -90,8 +90,9 @@ export function ThreeScene({ activeSection }: ThreeSceneProps) {
       shadows
       camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}
       gl={{ antialias: false }}
-      className="!fixed inset-0 z-10 touch-none transition-opacity duration-1000"
-      style={{ pointerEvents: 'auto' }}
+      eventSource={typeof window !== 'undefined' ? document.body : undefined}
+      className="!fixed inset-0 z-10"
+      style={{ pointerEvents: 'none' }}
     >
       <Suspense fallback={null}>
         <ambientLight intensity={0.2 * Math.PI * lights.intensity} />

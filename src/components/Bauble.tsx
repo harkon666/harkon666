@@ -6,9 +6,9 @@ import { BallCollider, RigidBody, CylinderCollider } from '@react-three/rapier'
 import type { RapierRigidBody } from '@react-three/rapier'
 
 const VARIANT_COLORS: Record<string, { sphere: string; emissive: string; cap: string }> = {
-  hero:    { sphere: '#338aca', emissive: '#61bdaf', cap: '#2b2c68' },
+  hero: { sphere: '#338aca', emissive: '#61bdaf', cap: '#2b2c68' },
   summary: { sphere: '#5c6bc0', emissive: '#7986cb', cap: '#283593' },
-  skills:  { sphere: '#26a69a', emissive: '#4db6ac', cap: '#00695c' },
+  skills: { sphere: '#26a69a', emissive: '#4db6ac', cap: '#00695c' },
   contact: { sphere: '#42a5f5', emissive: '#90caf9', cap: '#1565c0' },
 }
 
@@ -59,9 +59,9 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
     if (!api.current) return
     delta = Math.min(0.1, delta)
     const t = state.clock.elapsedTime + timeOffset.current
+    const pos = api.current.translation()
 
     if (variant === 'hero') {
-      // HERO: Pull toward center (swipeable)
       if (isDiscarded) return
       api.current.applyImpulse(
         _vec
@@ -74,55 +74,39 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
           }),
         true
       )
-    } else if (variant === 'summary') {
-      // SUMMARY: Bob up and down on left/right sides (more stable and wider)
-      const side = index % 2 === 0 ? -1 : 1
-      const targetX = side * (10 + (index % 4) * 0.8)
-      const targetY = Math.sin(t * 0.5) * 4 + ((index % 6) - 3) * 1.5
-      const targetZ = Math.sin(t * 0.2 + index) * 2
+    } else {
+      let targetX = 0, targetY = 0, targetZ = 0
+      if (variant === 'summary') {
+        const side = index % 2 === 0 ? -1 : 1
+        targetX = side * (11 + (index % 4) * 1.0)
+        targetY = Math.sin(t * 0.5) * 4 + ((index % 6) - 3) * 1.5
+        targetZ = Math.sin(t * 0.2 + index) * 2
+      } else if (variant === 'skills') {
+        const angle = (index / total) * Math.PI * 2 + t * 0.2
+        const radius = 11 + Math.sin(t * 0.4 + index) * 1.2
+        targetX = Math.cos(angle) * radius
+        targetY = Math.sin(angle) * (radius * 0.8)
+        targetZ = Math.sin(t * 0.3 + index * 0.5) * 2
+      } else if (variant === 'contact') {
+        const side = index % 2 === 0 ? -1 : 1
+        targetX = side * (13 + (index % 3) * 1.5)
+        targetY = Math.sin(t * 0.3 + index) * 6 + ((index % 8) - 4) * 1.5
+        targetZ = Math.cos(t * 0.2) * 3
+      }
 
-      const pos = api.current.translation()
-      _vec.set(
-        (targetX - pos.x) * 2 * delta,
-        (targetY - pos.y) * 2 * delta,
-        (targetZ - pos.z) * 2 * delta
-      )
-      api.current.applyImpulse(_vec, true)
-    } else if (variant === 'skills') {
-      // SKILLS: Orbit in a MUCH wider circle framing the content
-      const angle = (index / total) * Math.PI * 2 + t * 0.2
-      const radius = 10.5 + Math.sin(t * 0.4 + index) * 1.2
-      const targetX = Math.cos(angle) * radius
-      const targetY = Math.sin(angle) * (radius * 0.8) // Slightly oval for better framing
-      const targetZ = Math.sin(t * 0.3 + index * 0.5) * 2
-
-      const pos = api.current.translation()
-      _vec.set(
-        (targetX - pos.x) * 3 * delta,
-        (targetY - pos.y) * 3 * delta,
-        (targetZ - pos.z) * 3 * delta
-      )
-      api.current.applyImpulse(_vec, true)
-    } else if (variant === 'contact') {
-      // CONTACT: Stable floating on extreme sides
-      const side = index % 2 === 0 ? -1 : 1
-      const targetX = side * (12 + (index % 3) * 1.5)
-      const targetY = Math.sin(t * 0.3 + index) * 6 + ((index % 8) - 4) * 1.5
-      const targetZ = Math.cos(t * 0.2) * 3
-
-      const pos = api.current.translation()
-      _vec.set(
-        (targetX - pos.x) * 1.5 * delta,
-        (targetY - pos.y) * 1.5 * delta,
-        (targetZ - pos.z) * 1.5 * delta
-      )
+      _vec.set(pos.x - targetX, pos.y - targetY, pos.z - targetZ)
+      _vec.normalize().multiply({
+        x: -80 * delta * scale,
+        y: -150 * delta * scale,
+        z: -50 * delta * scale,
+      })
       api.current.applyImpulse(_vec, true)
     }
   })
 
   return (
     <RigidBody
-      linearDamping={variant === 'hero' ? (isDiscarded ? 2 : 0.75) : 4}
+      linearDamping={variant === 'hero' ? (isDiscarded ? 2 : 0.75) : 3.5}
       angularDamping={0.4}
       friction={0.2}
       position={initialPosition}
