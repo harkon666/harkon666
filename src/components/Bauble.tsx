@@ -73,8 +73,8 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
           .normalize()
           .multiply({
             x: -50 * delta * responsiveScale,
-            y: -150 * delta * responsiveScale,
-            z: -50 * delta * responsiveScale,
+            y: -120 * delta * responsiveScale,
+            z: 0,
           }),
         true
       )
@@ -121,6 +121,9 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
       linearDamping={variant === 'hero' ? (isDiscarded ? 2 : 0.75) : 3.5}
       angularDamping={0.4}
       friction={0.2}
+      canSleep={false}
+      enabledTranslations={[true, true, variant !== 'hero']}
+      enabledRotations={[variant !== 'hero', variant !== 'hero', true]}
       position={initialPosition}
       ref={api as any}
       colliders={false}
@@ -131,11 +134,13 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
       }}
     >
       <BallCollider args={[scale * (viewport.width < 10 ? 0.8 : 1)]} />
-      <CylinderCollider
-        rotation={[Math.PI / 2, 0, 0]}
-        position={[0, 0, 1.2 * scale]}
-        args={[0.15 * scale, 0.275 * scale]}
-      />
+      {variant !== 'hero' && (
+        <CylinderCollider
+          rotation={[Math.PI / 2, 0, 0]}
+          position={[0, 0, 1.2 * scale]}
+          args={[0.15 * scale, 0.275 * scale]}
+        />
+      )}
       <mesh
         castShadow
         receiveShadow
