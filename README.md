@@ -1,204 +1,69 @@
-Welcome to your new TanStack Start app! 
+# 🌌 Cyber Void Portfolio: Bryan Dewa Wicaksana
 
-# Getting Started
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://harkon666.vercel.app)
+[![Web3](https://img.shields.io/badge/Stack-Web3%20%2F%20Fullstack-26b7cd?style=for-the-badge)](https://github.com/harkon666)
 
-To run this application:
+Highly motivated **Software Engineer** specializing in **Web3** and **High-Performance Architectures**. Experienced in building decentralized applications (dApps) and building robust Smart Contracts across multiple ecosystems (Sui, Polkadot, EVM).
 
-```bash
-bun install
-bun --bun run dev
-```
+---
 
-# Building For Production
+## 🚀 Tech Stack
 
-To build this application for production:
+- **Languages:** `Solidity`, `Move`, `Rust`, `Go`, `TypeScript`, `JavaScript`.
+- **Frontend:** `React.js`, `Next.js`, `TanStack Query`, `TailwindCSS`.
+- **Backend/Systems:** `Axum`, `Ent Go`, `Express.js`.
+- **Web3/Blockchain:** `Sui SDK`, `Hardhat`, `Foundry`.
+- **Design:** `Three.js`, `Framer Motion`, `R3F`.
 
-```bash
-bun --bun run build
-```
+---
 
-## Testing
+## 🏆 Key Achievements & Projects
 
-This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
+### 🦄 OMNISPEND POLKADOT
+*Fullstack Developer | March 2025*
+An intent-centric paradigm platform designed for frictionless cross-chain payments.
 
-```bash
-bun --bun run test
-```
+### 🎮 Narnia Realm
+*Smart Contract Developer | December 2024*
+Won **1st Place** for technical implementation at the **Sui Mini Hackathon**. Built a comprehensive Web3 launchpad for NFT collections on the Sui Blockchain.
 
-## Styling
+### 🏦 Tungky RWA
+*Smart Contract Developer | July 2025*
+A specialized platform for Real-World Asset (RWA) tokenization, featuring a custom Smart Contract Factory and ERC1967Proxy architecture.
 
-This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+---
 
-### Removing Tailwind CSS
+## 💼 Work Experience
 
-If you prefer not to use Tailwind CSS:
+**Freelance — Fullstack Engineer**  
+*Jan 2024 – Present (South Tangerang, Indonesia)*
+- Architected dApps and self-contained Web3 solutions.
+- Focused on high-performance architectures and secure Smart Contract implementation.
 
-1. Remove the demo pages in `src/routes/demo/`
-2. Replace the Tailwind import in `src/styles.css` with your own styles
-3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
-4. Uninstall the packages: `bun install @tailwindcss/vite tailwindcss -D`
+**Telkom Indonesia — Frontend Developer**  
+*Jun 2020 – Dec 2023 (Central Jakarta, Indonesia)*
+- Streamlined procurement processes with responsive Next.js applications.
+- Improved user accessibility and performance for enterprise-level tools.
 
-## Linting & Formatting
+---
 
+## 🎓 Education
 
-This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
+- **SUI Bootcamp Indonesia** | *Jakarta Selatan (Graduated: Dec 2025)*
+- **Dumbways Bootcamp** | *Tangerang Selatan (Graduated: Feb 2020)*
+- **SMK Letris Indonesia 2** | *Tangerang Selatan (Graduated: 2019)*
 
-```bash
-bun --bun run lint
-bun --bun run format
-bun --bun run check
-```
+---
 
+## 📬 Connectivity
 
+- **Portfolio:** [harkon666.vercel.app](https://harkon666.vercel.app)
+- **LinkedIn:** [bryan-dewawicaksana](https://linkedin.com/in/bryan-dewawicaksana)
+- **GitHub:** [@harkon666](https://github.com/harkon666)
+- **Email:** [bryan.wicaksanaa@gmail.com](mailto:bryan.wicaksanaa@gmail.com)
 
-## Routing
+---
 
-This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
-
-### Adding A Route
-
-To add a new route to your application just add a new file in the `./src/routes` directory.
-
-TanStack will automatically generate the content of the route file for you.
-
-Now that you have two routes you can use a `Link` component to navigate between them.
-
-### Adding Links
-
-To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
-
-```tsx
-import { Link } from "@tanstack/react-router";
-```
-
-Then anywhere in your JSX you can use it like so:
-
-```tsx
-<Link to="/about">About</Link>
-```
-
-This will create a link that will navigate to the `/about` route.
-
-More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
-
-### Using A Layout
-
-In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
-
-Here is an example layout that includes a header:
-
-```tsx
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
-
-export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { title: 'My App' },
-    ],
-  }),
-  shellComponent: ({ children }) => (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        <header>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
-          </nav>
-        </header>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  ),
-})
-```
-
-More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
-
-## Server Functions
-
-TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
-
-```tsx
-import { createServerFn } from '@tanstack/react-start'
-
-const getServerTime = createServerFn({
-  method: 'GET',
-}).handler(async () => {
-  return new Date().toISOString()
-})
-
-// Use in a component
-function MyComponent() {
-  const [time, setTime] = useState('')
-  
-  useEffect(() => {
-    getServerTime().then(setTime)
-  }, [])
-  
-  return <div>Server time: {time}</div>
-}
-```
-
-## API Routes
-
-You can create API routes by using the `server` property in your route definitions:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-import { json } from '@tanstack/react-start'
-
-export const Route = createFileRoute('/api/hello')({
-  server: {
-    handlers: {
-      GET: () => json({ message: 'Hello, World!' }),
-    },
-  },
-})
-```
-
-## Data Fetching
-
-There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
-
-For example:
-
-```tsx
-import { createFileRoute } from '@tanstack/react-router'
-
-export const Route = createFileRoute('/people')({
-  loader: async () => {
-    const response = await fetch('https://swapi.dev/api/people')
-    return response.json()
-  },
-  component: PeopleComponent,
-})
-
-function PeopleComponent() {
-  const data = Route.useLoaderData()
-  return (
-    <ul>
-      {data.results.map((person) => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ul>
-  )
-}
-```
-
-Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
-
-# Demo files
-
-Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
-
-# Learn More
-
-You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
-
-For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
+<p align="center">
+  <i>"I adapt fast to every environment and language. Just give me the time to prove it."</i>
+</p>
