@@ -21,7 +21,7 @@ export function HeroSection({ isActive }: SectionProps) {
         <span className="text-[10px] tracking-[0.5em] text-[#26b7cd]/40 font-medium uppercase">
           INTERACTIVE CV / SWIPE TO REVEAL
         </span>
-        <h1 className="text-[5vw] leading-none tracking-tighter text-[#61bdaf]/20 font-black uppercase max-w-4xl">
+        <h1 className="text-[5vw] leading-none tracking-tighter text-[#26b7cd]/60 font-black uppercase max-w-4xl">
           HELP HARKON TO PAY<br />
           FOR COLLEGE
         </h1>
