@@ -17,7 +17,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'Harkon666 Profile',
+        title: 'Bryan Dewa Wicaksana | Harkon666',
       },
     ],
     links: [
