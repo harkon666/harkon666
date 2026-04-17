@@ -1,4 +1,4 @@
-# 🌌 Cyber Void Portfolio: Bryan Dewa Wicaksana
+# 🌌 Portfolio: Bryan Dewa Wicaksana
 
 [![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://harkon666.vercel.app)
 [![Web3](https://img.shields.io/badge/Stack-Web3%20%2F%20Fullstack-26b7cd?style=for-the-badge)](https://github.com/harkon666)
