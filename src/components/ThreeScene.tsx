@@ -15,7 +15,7 @@ interface BaubleConfig {
 }
 
 const SECTION_CONFIGS: BaubleConfig[] = [
-  { count: 40, variant: 'hero' },
+  { count: 80, variant: 'hero' },
   { count: 50, variant: 'summary' },
   { count: 48, variant: 'skills' },
   { count: 50, variant: 'contact' },
@@ -69,8 +69,8 @@ export function ThreeScene({ activeSection }: ThreeSceneProps) {
       const scale = [0.6, 0.75, 0.85, 1, 1.1][Math.floor(Math.random() * 5)]
 
       if (config.variant === 'hero') {
-        x = r(15)
-        y = r(15) - 20
+        x = -15 + Math.random() * 10
+        y = 10 + Math.random() * 15
         z = 0
       } else if (config.variant === 'summary') {
         const side = i % 2 === 0 ? -1 : 1

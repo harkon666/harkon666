@@ -67,17 +67,19 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
 
     if (variant === 'hero') {
       if (isDiscarded) return
+      
+      // Constant strong diagonal 'storm' wind
       api.current.applyImpulse(
-        _vec
-          .copy(api.current.translation())
-          .normalize()
-          .multiply({
-            x: -50 * delta * responsiveScale,
-            y: -120 * delta * responsiveScale,
-            z: 0,
-          }),
+        _vec.set(250 * delta * responsiveScale, -250 * delta * responsiveScale, 0),
         true
       )
+
+      // When off screen, they are "gone" (put to sleep and stopped)
+      if (pos.x > viewport.width * 1.5 || pos.y < -viewport.height * 1.5) {
+        api.current.setTranslation({ x: 1000, y: 1000, z: 0 }, true)
+        api.current.sleep()
+        setIsDiscarded(true)
+      }
     } else {
       let targetX = 0, targetY = 0, targetZ = 0
 
@@ -92,7 +94,7 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
         const angle = (index / total) * Math.PI * 2 + t * 0.2
         // Responsive Ellipse: stretch vertically for tall mobile screens
         const rx = viewport.width * 0.5 + 2.5
-        const ry = viewport.width < 10 
+        const ry = viewport.width < 10
           ? Math.max(viewport.height * 0.38, 8) // Tall mobile oval
           : viewport.height * 0.45 // Desktop circle-ish
         targetX = Math.cos(angle) * rx
