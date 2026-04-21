@@ -157,16 +157,19 @@ function TreasurePage() {
       <div className="absolute top-6 left-6 z-10">
         <Link
           to="/"
-          className="flex items-center gap-2 text-[#26b7cd] bg-black/60 px-5 py-3 rounded-full border border-[#26b7cd]/50 hover:bg-[#26b7cd]/20 transition-all backdrop-blur-md shadow-[0_0_15px_rgba(38,183,205,0.2)]"
+          className="flex items-center justify-center text-[#26b7cd] bg-black/60 w-12 h-12 rounded-full border border-[#26b7cd]/50 hover:bg-[#26b7cd]/20 transition-all backdrop-blur-md shadow-[0_0_15px_rgba(38,183,205,0.1)] group"
+          title="Return to Void"
         >
-          <ArrowLeft size={18} />
-          <span className="font-bold tracking-widest text-xs uppercase">Return to Void</span>
+          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
         </Link>
       </div>
 
-      <div className="absolute top-6 right-6 z-10 pointer-events-none">
-        <span className="bg-black/60 text-white/50 px-5 py-3 rounded-full border border-white/10 text-[10px] tracking-[0.2em] uppercase backdrop-blur-md">
+      <div className="absolute top-6 right-6 z-10 pointer-events-none flex flex-col items-end gap-2 text-right">
+        <span className="bg-black/60 text-white/50 px-5 py-2 rounded-full border border-white/10 text-[10px] tracking-[0.2em] uppercase backdrop-blur-md whitespace-nowrap">
           Drag to Pan • Scroll to Zoom
+        </span>
+        <span className="bg-black/60 text-[#26b7cd]/70 px-5 py-2 rounded-full border border-[#26b7cd]/20 text-[9px] tracking-[0.15em] uppercase backdrop-blur-md whitespace-nowrap border-r-2 border-r-[#26b7cd]/40">
+          Press Bauble to Shatter • Click Photo for Detail
         </span>
       </div>
 

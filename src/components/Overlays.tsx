@@ -217,6 +217,16 @@ export function TreasureSection({ isActive }: SectionProps) {
             className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 scale-100 group-hover:scale-105"
           />
         </Link>
+
+        {/* Mobile-friendly Button */}
+        <Link 
+          to="/treasure"
+          style={{ pointerEvents: 'auto' }}
+          className="flex items-center gap-2 px-8 py-3 bg-[#26b7cd]/10 border border-[#26b7cd]/30 rounded-full text-[#26b7cd] hover:bg-[#26b7cd]/20 hover:border-[#26b7cd]/50 transition-all duration-300 shadow-[0_0_20px_rgba(38,183,205,0.1)] group"
+        >
+          <Map size={18} className="group-hover:rotate-12 transition-transform" />
+          <span className="text-xs font-bold tracking-[0.2em] uppercase">Open Treasure Map</span>
+        </Link>
       </div>
     </div>
   )
