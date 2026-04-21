@@ -61,7 +61,6 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
   const { viewport } = useThree()
   const api = useRef<RapierRigidBody>(null)
   const [isDiscarded, setIsDiscarded] = useState(false)
-  const colors = VARIANT_COLORS[variant] || VARIANT_COLORS.hero
   const timeOffset = useRef(index * 1.7 + Math.random() * 2)
 
   const discard = () => {
@@ -83,7 +82,7 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
 
     if (variant === 'hero') {
       if (isDiscarded) return
-      
+
       // Constant strong diagonal 'storm' wind
       api.current.applyImpulse(
         _vec.set(250 * delta * responsiveScale, -250 * delta * responsiveScale, 0),
