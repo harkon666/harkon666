@@ -20,7 +20,7 @@ export function HeroSection({ isActive }: SectionProps) {
     <div className="section-content">
       <div className={`flex flex-col items-center gap-4 p-10 text-center transition-opacity duration-[2000ms] ease-in-out pointer-events-none ${visible ? 'opacity-100' : 'opacity-0'}`}>
         <span className="text-[10px] tracking-[0.5em] text-[#26b7cd]/40 font-medium uppercase">
-          INTERACTIVE CV / SWIPE TO REVEAL
+          INTERACTIVE CV / SWIPE THE BAUBLE IF THAT BAUBLE STUCK
         </span>
         <h1 className="text-[5vw] leading-none tracking-tighter text-[#26b7cd]/60 font-black uppercase max-w-4xl">
           HELP HARKON<br />
@@ -196,11 +196,11 @@ export function TreasureSection({ isActive }: SectionProps) {
           TREASURES MAP
         </h2>
         <p className="text-[1rem] leading-relaxed text-[#61bdaf]/60 font-medium">
-          Discover hidden depths in the Cyber Void.
+          Discover hidden treasures.
         </p>
-        
-        <Link 
-          to="/treasure" 
+
+        <Link
+          to="/treasure"
           className="group relative w-full aspect-video mt-6 overflow-hidden rounded-xl border border-[#26b7cd]/30 cursor-pointer block"
           style={{ pointerEvents: 'auto' }}
         >
@@ -211,9 +211,9 @@ export function TreasureSection({ isActive }: SectionProps) {
               <span className="text-sm font-bold tracking-widest uppercase">ENTER MAP</span>
             </span>
           </div>
-          <img 
-            src="/map.jpg" 
-            alt="Treasures Map Preview" 
+          <img
+            src="/map.jpg"
+            alt="Treasures Map Preview"
             className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 scale-100 group-hover:scale-105"
           />
         </Link>
