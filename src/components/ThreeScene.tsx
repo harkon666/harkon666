@@ -106,7 +106,7 @@ export function ThreeScene({ activeSection }: ThreeSceneProps) {
 
   return (
     <Canvas
-      shadows
+      dpr={[1, 1.5]}
       camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}
       gl={{ antialias: false }}
       eventSource={typeof window !== 'undefined' ? document.body : undefined}
@@ -120,7 +120,6 @@ export function ThreeScene({ activeSection }: ThreeSceneProps) {
           angle={0.2}
           penumbra={1}
           position={[30, 30, 30]}
-          castShadow
           color={lights.spotlight}
         />
         <directionalLight
@@ -139,7 +138,7 @@ export function ThreeScene({ activeSection }: ThreeSceneProps) {
         <Environment preset="city" />
 
         <EffectComposer>
-          <N8AO color={lights.spotlight} aoRadius={2} intensity={2} />
+          <N8AO color={lights.spotlight} aoRadius={1} intensity={1} />
         </EffectComposer>
       </Suspense>
     </Canvas>

@@ -27,7 +27,23 @@ function getCapMaterial(variant: string) {
   return capMaterials[variant]
 }
 
-const sphereGeometry = new THREE.SphereGeometry(1, 28, 28)
+const sphereGeometry = new THREE.SphereGeometry(1, 16, 16)
+
+// Cache sphere materials per variant to avoid creating new instances per bauble
+const sphereMaterials: Record<string, THREE.MeshStandardMaterial> = {}
+function getSphereMaterial(variant: string) {
+  if (!sphereMaterials[variant]) {
+    const colors = VARIANT_COLORS[variant] || VARIANT_COLORS.hero
+    sphereMaterials[variant] = new THREE.MeshStandardMaterial({
+      color: colors.sphere,
+      emissive: colors.emissive,
+      emissiveIntensity: 0.5,
+      metalness: 0.8,
+      roughness: 0.1,
+    })
+  }
+  return sphereMaterials[variant]
+}
 
 interface BaubleProps {
   scale: number
@@ -123,7 +139,7 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
       linearDamping={variant === 'hero' ? (isDiscarded ? 2 : 0.75) : 3.5}
       angularDamping={0.4}
       friction={0.2}
-      canSleep={false}
+      canSleep={variant !== 'hero'}
       enabledTranslations={[true, true, variant !== 'hero']}
       enabledRotations={[variant !== 'hero', variant !== 'hero', true]}
       position={initialPosition}
@@ -144,24 +160,13 @@ export function Bauble({ scale, initialPosition, variant = 'hero', index, total 
         />
       )}
       <mesh
-        castShadow
-        receiveShadow
         scale={scale}
         geometry={sphereGeometry}
+        material={getSphereMaterial(variant)}
         onPointerEnter={variant === 'hero' ? discard : undefined}
         onClick={variant === 'hero' ? discard : undefined}
-      >
-        <meshStandardMaterial
-          color={colors.sphere}
-          emissive={colors.emissive}
-          emissiveIntensity={0.5}
-          metalness={0.8}
-          roughness={0.1}
-          dispose={null}
-        />
-      </mesh>
+      />
       <mesh
-        castShadow
         scale={2.5 * scale}
         position={[0, 0, -1.8 * scale]}
         geometry={nodes.Mesh_1.geometry}
