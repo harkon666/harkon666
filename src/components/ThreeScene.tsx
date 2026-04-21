@@ -19,6 +19,7 @@ const SECTION_CONFIGS: BaubleConfig[] = [
   { count: 50, variant: 'summary' },
   { count: 48, variant: 'skills' },
   { count: 50, variant: 'contact' },
+  { count: 80, variant: 'hero' }, // Treasure section shares hero storm
 ]
 
 interface ThreeSceneProps {
@@ -30,6 +31,7 @@ const SECTION_LIGHTS = [
   { spotlight: "#5c6bc0", directional: "#7986cb", intensity: 0.8 },
   { spotlight: "#26a69a", directional: "#4db6ac", intensity: 0.9 },
   { spotlight: "#42a5f5", directional: "#90caf9", intensity: 1.1 },
+  { spotlight: "#338aca", directional: "#26b7cd", intensity: 1.0 }, // Duplicate of hero for treasure
 ]
 
 export function ThreeScene({ activeSection }: ThreeSceneProps) {
@@ -50,10 +52,11 @@ export function ThreeScene({ activeSection }: ThreeSceneProps) {
   }, [activeSection])
 
   const mobileConfigs = useMemo(() => [
-    { count: 55, variant: 'hero' },
+    { count: 70, variant: 'hero' },
     { count: 40, variant: 'summary' },
     { count: 32, variant: 'skills' },
     { count: 40, variant: 'contact' },
+    { count: 55, variant: 'hero' },
   ], [])
 
   const config = isMobile

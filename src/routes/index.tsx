@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ThreeScene } from '#/components/ThreeScene'
-import { HeroSection, SummarySection, SkillsSection, ContactSection } from '#/components/Overlays'
+import { HeroSection, SummarySection, SkillsSection, ContactSection, TreasureSection } from '#/components/Overlays'
 import { Suspense, useState, useEffect, useRef, useCallback } from 'react'
 
 export const Route = createFileRoute('/')({ component: App })
@@ -55,6 +55,10 @@ function App() {
 
       <div ref={setSectionRef(3)} className="section">
         <ContactSection isActive={activeSection === 3} />
+      </div>
+
+      <div ref={setSectionRef(4)} className="section">
+        <TreasureSection isActive={activeSection === 4} />
       </div>
     </div>
   )

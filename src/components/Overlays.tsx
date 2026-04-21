@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { Github, Linkedin, Mail, Map } from 'lucide-react'
+import { Link } from '@tanstack/react-router'
 
 interface SectionProps {
   isActive: boolean
@@ -170,6 +171,52 @@ export function ContactSection({ isActive }: SectionProps) {
         <div className="mt-8 text-[9px] tracking-[0.5em] text-white/10 uppercase">
           Built with React Three Fiber + Rapier Physics
         </div>
+      </div>
+    </div>
+  )
+}
+
+export function TreasureSection({ isActive }: SectionProps) {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    if (isActive && !visible) {
+      const timer = setTimeout(() => setVisible(true), 1200)
+      return () => clearTimeout(timer)
+    }
+  }, [isActive, visible])
+
+  return (
+    <div className="section-content">
+      <div className={`flex flex-col items-center gap-8 p-10 max-w-xl text-center transition-opacity duration-[2000ms] ease-in-out ${visible ? 'opacity-100' : 'opacity-0'}`}>
+        <span className="text-[10px] tracking-[0.5em] text-[#26b7cd]/80 font-medium uppercase">
+          EXPLORE
+        </span>
+        <h2 className="text-[4vw] leading-none tracking-tight text-white/60 font-black uppercase">
+          TREASURES MAP
+        </h2>
+        <p className="text-[1rem] leading-relaxed text-[#61bdaf]/60 font-medium">
+          Discover hidden depths in the Cyber Void.
+        </p>
+        
+        <Link 
+          to="/treasure" 
+          className="group relative w-full aspect-video mt-6 overflow-hidden rounded-xl border border-[#26b7cd]/30 cursor-pointer block"
+          style={{ pointerEvents: 'auto' }}
+        >
+          <div className="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors duration-500 z-10" />
+          <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+            <span className="flex items-center gap-2 px-6 py-3 bg-black/60 backdrop-blur-md rounded-full border border-[#26b7cd]/50 text-[#26b7cd] opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
+              <Map size={18} />
+              <span className="text-sm font-bold tracking-widest uppercase">ENTER MAP</span>
+            </span>
+          </div>
+          <img 
+            src="/map.jpg" 
+            alt="Treasures Map Preview" 
+            className="w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 scale-100 group-hover:scale-105"
+          />
+        </Link>
       </div>
     </div>
   )
